@@ -1,0 +1,28 @@
+# Lints the cask and installs it on Apple Silicon and Intel runners.
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-latest, macos-15-intel]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: Homebrew/actions/setup-homebrew@main
+      - run: brew style shurizzle/hum
+      - run: brew audit --cask --online --strict shurizzle/hum/hum
+      - name: Install
+        run: |
+          brew install --cask shurizzle/hum/hum
+          hum --version
+          prefix="$(brew --prefix)"
+          ls "$prefix/share/zsh/site-functions/_hum" "$prefix/etc/bash_completion.d/hum" \
+            "$prefix/share/fish/vendor_completions.d/hum.fish"
+          if [ "$(uname -m)" = arm64 ]; then command -v soloist; fi
+      - run: brew uninstall --zap --cask shurizzle/hum/hum
