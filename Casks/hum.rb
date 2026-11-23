@@ -1,9 +1,9 @@
 cask "hum" do
   arch arm: "aarch64", intel: "x86_64"
 
-  version "0.1.3"
-  sha256 arm:   "6e8439b5f4595ff2ba9f72a6fbeb4d11d2b74476eea53f964e02f96d1484351c",
-         intel: "b254fd14e761de6df3c3831447170e63383bf652a3e60078a74d9c15eb7a1a2e"
+  version "0.1.4"
+  sha256 arm:   "80e4da4dd1b1792f72cc2560a96e0820a0c799f228837d5b53209ad298fa5c5b",
+         intel: "cb4196a4a942b998461711900a28a401a8b4bf1e1f4c1bb599438973ab9470c5"
 
   # Soloist has no Intel build; x86_64 hum bundles the ECS engine instead.
   on_arm do
